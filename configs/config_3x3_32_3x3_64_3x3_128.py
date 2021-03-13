@@ -23,7 +23,7 @@ class Config:
         train_batch_size = 2
         valid_batch_size = 2 * train_batch_size
         test_batch_size = 2 * train_batch_size
-    data_file = 'datas/train-images-idx3-ubyte.gz'
+    data_file = '/content/ConvLSTM.pytorch/datas/train-images-idx3-ubyte.gz'
 
     num_frames_input = 10
     num_frames_output = 10
