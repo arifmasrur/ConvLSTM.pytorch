@@ -11,6 +11,48 @@ from torch.utils.data import Dataset
 import gzip
 import random
 import torch
+import pickle
+import os
+
+def get_file_paths(root):
+    print("The train directory is {}".format(root))
+    f = []
+    for _,_,filename in os.walk(root):
+        f.extend(filename)
+    f = sorted(f)
+    paths = [] 
+    for file in f:
+        filepath = paths.append(os.path.join(root,file))
+    
+    return paths
+
+
+class WildFireDataset(Dataset):
+    def __init__(self, config, logger, root, split='train'):
+        super().__init__()
+        self.paths = get_file_paths(root)
+        self.image_size = config.image_size
+        # self.input_size = config.input_size
+        logger.info('Loaded {} samples ({})'.format(self.__len__(), split))
+
+    def __getitem__(self, index):
+        
+        datafile = self.paths[index]
+        pkl_data = pickle.load(open(datafile,"rb"))
+        inputs = torch.from_numpy(pkl_data[0]).permute(0, 3, 1, 2).contiguous()
+        outputs = torch.from_numpy(pkl_data[1]).permute(0, 3, 1, 2).contiguous()
+
+        # inputs = (inputs / 255.) > 0.
+        # outputs = outputs / 255.
+        
+        """
+        Write your own data normalization step here
+        """
+        
+        return inputs, outputs
+
+    def __len__(self):
+        return len(self.paths)
 
 class MovingMNISTDataset(Dataset):
     def __init__(self, config, split='train'):
@@ -27,6 +69,7 @@ class MovingMNISTDataset(Dataset):
         self.num_frames_output = config.num_frames_output
         self.num_frames = config.num_frames_input + config.num_frames_output
         print('Loaded {} samples ({})'.format(self.__len__(), split))
+
 
     def _get_random_trajectory(self, seq_length):
         assert self.input_size[0] == self.input_size[1]
