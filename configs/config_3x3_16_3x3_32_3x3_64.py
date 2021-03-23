@@ -14,8 +14,9 @@ class Config:
     gpus = [0, ]
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if torch.cuda.is_available():
-        num_workers = 8 * len(gpus)
-        train_batch_size = 128
+        #num_workers = 8 * len(gpus)
+        num_workers = 2
+        train_batch_size = 2
         valid_batch_size = 2 * train_batch_size
         test_batch_size = 2 * train_batch_size
     else:
@@ -28,29 +29,26 @@ class Config:
     num_frames_input = 30
     num_frames_output = 10
     image_size = (110, 110) 
+    display = 30
+    draw = 10
     #input_size = (64, 64) 
-"""     step_length = 0.1 # What is this?
-    num_objects = [3] # What is this?
-    display = 10 # What is this?
-    draw = 10 # What is this?
-    train_dataset = (0, 10000) ## Change this -- mine will be different
-    valid_dataset = (10000, 12000) ## Change this -- mine will be different
-    test_dataset = (12000, 15000) ## Change this -- mine will be different """
-    epochs = 2
+
+    epochs = 5
 
     # (type, activation, in_ch (*** Change it to 7 ***), out_ch, kernel_size, padding, stride)
-    encoder = [('conv', 'leaky', 7, 16, 3, 1, 2),
+    encoder = [('conv', 'leaky', 7, 16, 3, 1, 1),
              ('convlstm', '', 16, 16, 3, 1, 1),
-             ('conv', 'leaky', 16, 32, 3, 1, 2),
+             ('conv', 'leaky', 16, 32, 3, 1, 1),
              ('convlstm', '', 32, 32, 3, 1, 1),
-             ('conv', 'leaky', 32, 64, 3, 1, 2),
+             ('conv', 'leaky', 32, 64, 3, 1, 1),
              ('convlstm', '', 64, 64, 3, 1, 1)]
-    decoder = [('deconv', 'leaky', 64, 32, 4, 1, 2),
+
+    decoder = [('deconv', 'leaky', 64, 32, 3, 1, 1),
                ('convlstm', '', 64, 32, 3, 1, 1),
-               ('deconv', 'leaky', 32, 16, 4, 1, 2),
+               ('deconv', 'leaky', 32, 16, 3, 1, 1),
                ('convlstm', '', 32, 16, 3, 1, 1),
-               ('deconv', 'leaky', 16, 16, 4, 1, 2),
-               ('convlstm', '', 17, 16, 3, 1, 1),
+               ('deconv', 'leaky', 16, 16, 3, 1, 1),
+               ('convlstm', '', 23, 16, 3, 1, 1),
                ('conv', 'sigmoid', 16, 1, 1, 0, 1)]
 
     data_dir = os.path.join(root_dir, 'data')

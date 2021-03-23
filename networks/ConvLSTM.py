@@ -82,6 +82,7 @@ class Encoder(nn.Module):
             x = getattr(self, layer)(x)
             if 'conv_' in layer: x = x.view(B, S, x.shape[1], x.shape[2], x.shape[3])
             if 'convlstm' in layer: outputs.append(x)
+            print("Done...encoder")
         return outputs
 
 class Decoder(nn.Module):
@@ -118,15 +119,20 @@ class Decoder(nn.Module):
         for layer in self.layers:
             if 'conv_' in layer or 'deconv_' in layer:
                 x = encoder_outputs[idx]
+                print("** deconv INPUT " + str(x.shape))
                 B, S, C, H, W = x.shape
                 x = x.view(B*S, C, H, W)
                 x = getattr(self, layer)(x)
                 x = x.view(B, S, x.shape[1], x.shape[2], x.shape[3])
+                print("** deconv OUTPUT " + str(x.shape))
             elif 'convlstm' in layer:
                 idx -= 1
                 x = torch.cat([encoder_outputs[idx], x], dim=2)
+                print("## convlstm INPUT " + str(x.shape))
                 x = getattr(self, layer)(x)
+                print("## convlstm OUTPUT " + str(x.shape))
                 encoder_outputs[idx] = x
+                print("Done decoder")
         return x
 
 class ConvLSTM(nn.Module):
@@ -144,6 +150,6 @@ if __name__ == '__main__':
     from thop import profile
     from configs.config_3x3_16_3x3_32_3x3_64 import config
     model = ConvLSTM(config)
-    flops, params = profile(model, inputs=(torch.Tensor(4, 10, 1, 64, 64),))
+    flops, params = profile(model, inputs=(torch.Tensor(2, 30, 7, 110, 110),))
     print(flops / 1e9, params / 1e6)
 

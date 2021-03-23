@@ -18,6 +18,8 @@ def train(config, logger, epoch, model, train_loader, criterion, optimizer):
     num_batchs = len(train_loader)
     for batch_idx, (inputs, targets) in enumerate(train_loader):
         print(inputs.max())
+
+        ## Make sure inputs and targets are calcluated over 110 x 100 regions.
         inputs = inputs.float().to(config.device)
         targets = targets.float().to(config.device)
         outputs = model(inputs)
@@ -37,6 +39,7 @@ def valid(config, logger, epoch, model, valid_loader, criterion):
     num_batchs = len(valid_loader)
     for batch_idx, (inputs, targets) in enumerate(valid_loader):
         with torch.no_grad():
+            ## Make sure inputs and targets are calcluated over 110 x 100 regions.
             inputs = inputs.float().to(config.device)
             targets = targets.float().to(config.device)
             outputs = model(inputs)
@@ -53,6 +56,7 @@ def test(config, logger, epoch, model, test_loader, criterion):
     num_batchs = len(test_loader)
     for batch_idx, (inputs, targets) in enumerate(test_loader):
         with torch.no_grad():
+            ## Make sure inputs and targets are calcluated over 110 x 100 regions.
             inputs = inputs.float().to(config.device)
             targets = targets.float().to(config.device)
             outputs = model(inputs)
