@@ -7,7 +7,7 @@ from __future__ import division
 from __future__ import print_function
 import os
 import numpy as np
-#from utils.dataset import MovingMNISTDataset
+from utils.dataset import MovingMNISTDataset
 from utils.dataset import WildFireDataset
 from utils.dataset import WildFireDataset_Test
 from utils.dataset import WildFireDataset_valid
