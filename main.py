@@ -65,8 +65,8 @@ def main():
     for epoch in range(config.epochs):
         epoch_records = train(config, logger, epoch, model, train_loader, criterion, optimizer)
         train_records.append(np.mean(epoch_records['loss']))
-        valid_records = valid(config, logger, epoch, model, valid_loader, criterion)
-        val_records.append(np.mean(valid_records['loss']))
+        #valid_records = valid(config, logger, epoch, model, valid_loader, criterion)
+        #val_records.append(np.mean(valid_records['loss']))
 
         test_records = test(config, logger, epoch, model, test_loader, criterion)
         tst_records.append(np.mean(test_records['loss']))
