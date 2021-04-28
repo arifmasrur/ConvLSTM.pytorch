@@ -36,6 +36,8 @@ class ConvLSTMBlock(nn.Module):
         for t in range(S):
             combined = torch.cat([inputs[:, t], # (B, C, H, W)
                                   hx], dim=1)
+
+            print("Combined's shape: {}".format(combined.shape))
             gates = self.conv(combined)
             ingate, forgetgate, cellgate, outgate = torch.split(gates, self.num_features, dim=1)
             ingate = torch.sigmoid(ingate)
@@ -48,7 +50,12 @@ class ConvLSTMBlock(nn.Module):
             hx = hy
             cx = cy
 
-        return torch.stack(outputs).permute(1, 0, 2, 3, 4).contiguous() # (S, B, C, H, W) -> (B, S, C, H, W)
+        finalOutputs = torch.stack(outputs).permute(1, 0, 2, 3, 4).contiguous() # (S, B, C, H, W) -> (B, S, C, H, W)
+        print("Output's shape: {}".format(finalOutputs.shape))
+
+        return finalOutputs
+
+
 
 class Encoder(nn.Module):
     def __init__(self, config):

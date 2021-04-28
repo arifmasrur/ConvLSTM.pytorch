@@ -23,7 +23,7 @@ def get_file_paths(root):
   paths = []
   i = 1 
   for file in f:
-    if i <= 806:
+    if i <= 4762:
       filepath = paths.append(os.path.join(root,file))
       i+=1
     else: 
@@ -72,7 +72,7 @@ def get_file_paths_test(root):
   paths = []
   i = 1 
   for file in f:
-    if i <= 201:
+    if i <= 1190:
       filepath = paths.append(os.path.join(root,file))
       i+=1
     else: 

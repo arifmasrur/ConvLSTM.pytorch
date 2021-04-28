@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9e9e6c1-6e95-4909-9635-738b2c4a5404" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.vs/ConvLSTM.pytorch/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/ConvLSTM.pytorch/v16/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
