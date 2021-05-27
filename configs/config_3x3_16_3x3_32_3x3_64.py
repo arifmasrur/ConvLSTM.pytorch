@@ -36,12 +36,11 @@ class Config:
     epochs = 100
 
     # (type, activation, in_ch (*** Change it to 7 ***), out_ch, kernel_size, padding, stride)
-    encoder = [('conv', 'leaky', 7, 16, 3, 1, 1),
-             ('convlstm', '', 16, 16, 3, 1, 1),
-             ('conv', 'leaky', 16, 32, 3, 1, 1),
-             ('convlstm', '', 32, 32, 3, 1, 1),
-             ('conv', 'leaky', 32, 64, 3, 1, 1),
-             ('convlstm', '', 64, 32, 3, 1, 1)]
+    encoder = [('convlstm', '', 7, 16, 3, 1, 1),
+
+             ('convlstm', '', 16, 32, 3, 1, 1),
+ 
+             ('convlstm', '', 32, 32, 3, 1, 1)]
 
     decoder = [('conv', 'sigmoid', 32, 1, 1, 0, 1)]
 
