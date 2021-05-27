@@ -16,7 +16,7 @@ class Config:
     if torch.cuda.is_available():
         #num_workers = 8 * len(gpus)
         num_workers = 2
-        train_batch_size = 4
+        train_batch_size = 2
         valid_batch_size = 2 * train_batch_size
         test_batch_size = 2 * train_batch_size
     else:
@@ -26,14 +26,14 @@ class Config:
         test_batch_size = 2 * train_batch_size
     data_file = 'datas/train-images-idx3-ubyte.gz'
 
-    num_frames_input = 10
+    num_frames_input = 30
     num_frames_output = 10
     image_size = (110, 110) 
-    display = 10
+    display = 30
     draw = 10
     #input_size = (64, 64) 
 
-    epochs = 100
+    epochs = 5
 
     # (type, activation, in_ch (*** Change it to 7 ***), out_ch, kernel_size, padding, stride)
     encoder = [('conv', 'leaky', 7, 16, 3, 1, 1),
@@ -41,9 +41,15 @@ class Config:
              ('conv', 'leaky', 16, 32, 3, 1, 1),
              ('convlstm', '', 32, 32, 3, 1, 1),
              ('conv', 'leaky', 32, 64, 3, 1, 1),
-             ('convlstm', '', 64, 32, 3, 1, 1)]
+             ('convlstm', '', 64, 64, 3, 1, 1)]
 
-    decoder = [('conv', 'sigmoid', 32, 1, 1, 0, 1)]
+    decoder = [('deconv', 'leaky', 64, 32, 3, 1, 1),
+               ('convlstm', '', 64, 32, 3, 1, 1),
+               ('deconv', 'leaky', 32, 16, 3, 1, 1),
+               ('convlstm', '', 32, 16, 3, 1, 1),
+               ('deconv', 'leaky', 16, 16, 3, 1, 1),
+               ('convlstm', '', 23, 16, 3, 1, 1),
+               ('conv', 'sigmoid', 16, 1, 1, 0, 1)]
 
     data_dir = os.path.join(root_dir, 'data')
     output_dir = os.path.join(root_dir, 'output')

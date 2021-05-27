@@ -70,6 +70,10 @@ def main():
 
         test_records = test(config, logger, epoch, model, test_loader, criterion)
         tst_records.append(np.mean(test_records['loss']))
+
+        if epoch%5==0:
+          torch.save(model.state_dict(), "/content/drive/My Drive/Wildfire/output/trained_model_%d.pth"%epoch)
+
         
         plt.plot(range(epoch + 1), train_records, label='train')
         #plt.plot(range(epoch + 1), val_records, label='valid')
