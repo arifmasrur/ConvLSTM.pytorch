@@ -72,14 +72,15 @@ def main():
         tst_records.append(np.mean(test_records['loss']))
 
         if epoch%5==0:
-          torch.save(model.state_dict(), "/content/drive/My Drive/Wildfire/output/trained_model_%d.pth"%epoch)
+          torch.save(model.state_dict(), "/content/drive/My Drive/Wildfire/output_ex1/trained_model_%d.pth"%epoch)
 
         
         plt.plot(range(epoch + 1), train_records, label='train')
         #plt.plot(range(epoch + 1), val_records, label='valid')
         plt.plot(range(epoch + 1), tst_records, label='test')
         plt.legend()
-        plt.savefig(os.path.join(config.output_dir, '{}.png'.format(name)))
+        #plt.savefig(os.path.join(config.output_dir, '{}.png'.format(name)))
+        plt.savefig('/content/drive/My Drive/Wildfire/output_ex1', '{}.png'.format(name))
         plt.close()
 
 if __name__ == '__main__':
